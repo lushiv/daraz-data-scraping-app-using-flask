@@ -6,9 +6,9 @@ from requests.utils import requote_uri
 import json
 import ast 
 from flask import jsonify
-from flask import Flask,request
+from flask import Flask,request,render_template,redirect
 
-from flask_app.methods import test
+from flask_app.methods import daraz_scraper
 
 
 app = Flask(__name__)
@@ -16,14 +16,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def test_base_api():
-    return test.test_main()
-
-
-@app.route('/api/')
-def test_base_api2():
-    return test.test_db()
-
-    
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True,host= '0.0.0.0', port='5001')
