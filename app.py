@@ -1,20 +1,11 @@
 import os, sys
 from os.path import dirname, join, abspath
 sys.path.insert(0, abspath(join(dirname(__file__), '../')))
-import requests 
-from requests.utils import requote_uri
-import json
-import ast 
-from flask import jsonify
-from flask import Flask,jsonify, request, render_template,redirect,url_for,flash,send_file
-from flask_app.methods import daraz_scraper
-
-
-from flask_app.methods import daraz_scraper
+from flask import Flask, request, render_template
+import scraper
 
 
 app = Flask(__name__)
-
 
 @app.route("/")
 def home():
@@ -29,10 +20,8 @@ def download():
         'scraping_url' : request.form["url"],
         'filename' : request.form["filename"]
         }
-        print(payload)
-        return_data = daraz_scraper.get_daraz_data(payload)
-
-        return redirect(url_for('download'))
+        return_data = scraper.get_daraz_data(payload)
+        return return_data
     else:
         return render_template('index.html')
 
